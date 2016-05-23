@@ -15,20 +15,45 @@ imagesData =(function GenerateImageURL(imagesDataArr){
    return imagesDataArr;
 })(imagesData);
 
-class AppComponent extends React.Component {
-  render() {
-    return (
-      <section className="stage">
-	      <section>dfgdfgdfg
-        <img src={yeomanImage} alt="Yeoman Generator" />
-	      </section>
-	      <nav></nav>
-      </section>
-    );
-  }
+
+class ImgFigure extends React.Component {
+	render(){
+		return(
+			<figure className="img-figure">
+			  <img src={this.props.data.imageURL}
+			  art={this.props.data.title}/>
+			  <figcaption className="img-title">{this.props.data.title}</figcaption>
+			</figure>
+			);
+	}
+
 }
 
-AppComponent.defaultProps = {
+
+class GalleryByReactApp extends React.Component {
+	render() {
+		var controllerUnits = [],
+			ImgFigure = [];
+
+			imageDatas.forEach(function (value) {
+				ImgFigure.push(<ImgFigure data={value}/>);
+			});
+		return (
+			<section className="stage">
+			<section className="img-sec">
+			{ImgFigure}
+			</section>
+			<nav className="controller-nav">
+			{controllerUnits}
+			</nav>
+
+			</section>
+			);
+	}
+
+}
+
+GalleryByReactApp.defaultProps = {
 };
 
-export default AppComponent;
+export default GalleryByReactApp;
