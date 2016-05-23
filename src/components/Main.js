@@ -19,14 +19,11 @@ class AppComponent extends React.Component {
   render() {
     return (
       <section className="stage">
-	      <section>
+	      <section>dfgdfgdfg
+        <img src={yeomanImage} alt="Yeoman Generator" />
 	      </section>
 	      <nav></nav>
       </section>
-      <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator" />erewe
-        <div className="notice">Pleasebh edit <code>src/components/Main.js</code> to get started!</div>
-      </div>
     );
   }
 }
