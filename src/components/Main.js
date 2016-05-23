@@ -1,9 +1,8 @@
 require('normalize.css/normalize.css');
-require('styles/App.css');
+require('styles/main.less');
 
 import React from 'react';
 
-let yeomanImage = require('../images/yeoman.png');
 //获得图片数据
 let imagesData = require('../data/imageData.json');
 
@@ -31,21 +30,50 @@ class ImgFigure extends React.Component {
 
 
 class GalleryByReactApp extends React.Component {
+  Constant:{
+    centerPos:{
+      left:0,
+      right:0
+    },
+    hPosRange:{// 水平方向的取值范围
+      leftSecX:[0,0],
+      rightSecX:[0,0],
+      y:[0,0]//左右侧y取值范围都一样
+    },
+    vPosRange: {    // 垂直方向的取值范围
+        x: [0, 0],
+        topY: [0, 0]
+    }
+  },
+  //组件加载完成后，为每张图计算其位置的范围
+  componentDidMount:function(){
+
+    //先拿到舞台大小
+    var stageDOM = React.findDOMNode(this.refs.stage),
+        stageW = stageDOM.scrollWidth,
+        stageH = stageDOM.scrollHeight,
+        halfStageW = Math.ceil(stageW/2),
+        halfStageH = Math.ceil(stageH/2);
+
+    //拿到一个imageFigure的大小
+    var imgFigureDOM = React.findDOMNode(this.refs.imgFigure0);
+  },
+
 	render() {
 		var controllerUnits = [],
-			ImgFigure = [];
+			ImgFigures = [];
 
-			imageDatas.forEach(function (value) {
-				ImgFigure.push(<ImgFigure data={value}/>);
+			imagesData.forEach(function (value,index) {
+				ImgFigures.push(<ImgFigure data={value} refs={"imgFigure"+index}/>);
 			});
 		return (
-			<section className="stage">
-			<section className="img-sec">
-			{ImgFigure}
-			</section>
-			<nav className="controller-nav">
-			{controllerUnits}
-			</nav>
+			<section className="stage" ref="stage">
+  			<section className="img-sec">
+  			{ImgFigures}
+  			</section>
+  			<nav className="controller-nav">
+  			{controllerUnits}
+  			</nav>
 
 			</section>
 			);
