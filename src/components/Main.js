@@ -10,7 +10,7 @@ let imagesData = require('../data/imageData.json');
 //利用自执行函数，获得图片的URL
 imagesData =(function GenerateImageURL(imagesDataArr){
    for(let i = 0 ;i< imagesDataArr.length;i++){
-   	  imagesDataArr[i].imageURL = require('../images/' + imagesDataArr[i].fileName);
+      imagesDataArr[i].imageURL = require('../images/' + imagesDataArr[i].fileName);
    }
    return imagesDataArr;
 })(imagesData);
@@ -27,16 +27,16 @@ function getRangeRandom(x,y){
 
 
 class ImgFigure extends React.Component {
-	render(){
+  render(){
     let pos = this.props.arrange.pos;
-		return(
-			<figure className="img-figure" style={pos}>
-			  <img src={this.props.data.imageURL}
-			  art={this.props.data.title}/>
-			  <figcaption className="img-title">{this.props.data.title}</figcaption>
-			</figure>
-			);
-	}
+    return(
+      <figure className="img-figure" style={pos}>
+        <img src={this.props.data.imageURL}
+        art={this.props.data.title}/>
+        <figcaption className="img-title">{this.props.data.title}</figcaption>
+      </figure>
+      );
+  }
 }
 
 
@@ -82,7 +82,7 @@ class GalleryByReactApp extends React.Component {
         constant = this.Constant;
     //中间图片
     let centerImg = imgArr.splice(index,1);
-    centerImg.map(function(){
+    centerImg = centerImg.map(function(){
         return{
           pos:{
             left:constant.centerPos.left,
@@ -159,8 +159,8 @@ class GalleryByReactApp extends React.Component {
     //console.log(ReactDOM.findDOMNode(this.refs.stage.scrollWidth));
 
     //先拿到舞台大小
-  var stageDOM = this.refs.stage;
-  var stageW = stageDOM.scrollWidth,
+    var stageDOM = this.refs.stage;
+    var stageW = stageDOM.scrollWidth,
         stageH = stageDOM.scrollHeight,
         halfStageW = Math.ceil(stageW/2),
         halfStageH = Math.ceil(stageH/2);
@@ -174,6 +174,8 @@ class GalleryByReactApp extends React.Component {
 
 
     //计算图片的位置范围
+    this.Constant.centerPos.left = halfStageW-halfImgW;
+    this.Constant.centerPos.top = halfStageH - halfImgH;
 
     this.Constant.hRange.leftX = [
         -halfImgW,
@@ -203,9 +205,9 @@ class GalleryByReactApp extends React.Component {
     
   }
 
-	render() {
-		var controllerUnits = [],
-			ImgFigures = [];
+  render() {
+    var controllerUnits = [],
+      ImgFigures = [];
       imagesData.forEach(function (value,index) {
        if(!this.state.imgsStyleArr[index]){
           this.state.imgsStyleArr[index]={
@@ -218,20 +220,20 @@ class GalleryByReactApp extends React.Component {
             isCenter: false    // 图片是否居中
           }
         }
-				ImgFigures.push(<ImgFigure  key={index} data={value} ref={'imgFigure'+index} arrange={this.state.imgsStyleArr[index]}/>);
-			}.bind(this));
-		return (
-			<section className="stage" ref="stage">
-  			<section className="img-sec">
-  			{ImgFigures}
-  			</section>
-  			<nav className="controller-nav">
-  			{controllerUnits}
-  			</nav>
+        ImgFigures.push(<ImgFigure  key={index} data={value} ref={'imgFigure'+index} arrange={this.state.imgsStyleArr[index]}/>);
+      }.bind(this));
+    return (
+      <section className="stage" ref="stage">
+        <section className="img-sec">
+        {ImgFigures}
+        </section>
+        <nav className="controller-nav">
+        {controllerUnits}
+        </nav>
 
-			</section>
-			);
-	}
+      </section>
+      );
+  }
 
 }
 
