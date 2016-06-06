@@ -17,6 +17,7 @@ imagesData =(function GenerateImageURL(imagesDataArr){
 
   /**
   *  获得一个在(x,y)范围内的随机数
+  *  @return {Number}
   */
 function getRangeRandom(x,y){
 
@@ -25,12 +26,30 @@ function getRangeRandom(x,y){
     return result;
   }
 
+/**
+   * 获取 0~30° 之间的一个任意正负值
+   * @return {[type]} [description]
+   */
+function get30DegRandom(){
+     return ((Math.random()>0.5)? '' :'-') + Math.ceil(Math.random()*30);
+}
 
 class ImgFigure extends React.Component {
   render(){
+    let style = {};
     let pos = this.props.arrange.pos;
+    style = pos;
+    if(this.props.arrange.rotate){
+      ["MozTransform","msTransform","WebkitTransform","transform"].forEach(function(value){
+          style[value] = "rotate("+this.props.arrange.rotate+"deg)";
+      }.bind(this));
+    }
+    if(this.props.arrange.isCenter){
+      style['z-index']= 11;
+    }
+
     return(
-      <figure className="img-figure" style={pos}>
+      <figure className="img-figure" style={style}>
         <img src={this.props.data.imageURL}
         art={this.props.data.title}/>
         <figcaption className="img-title">{this.props.data.title}</figcaption>
@@ -99,9 +118,9 @@ class GalleryByReactApp extends React.Component {
     let topNum = Math.ceil(Math.random()*2);
     //上分区图片起始index
     let topIndex = Math.ceil(Math.random()*(imgArr.length - topNum));
-   
+
     let topImgArr = imgArr.splice(topIndex,topNum);
-   
+
     topImgArr = topImgArr.map(function(){
        return {
           pos:{
@@ -114,12 +133,12 @@ class GalleryByReactApp extends React.Component {
               constant.vRange.topY[1]
               )
           },
-          rotate: 0,    // 旋转角度
+          rotate: get30DegRandom(),    // 旋转角度
           isInverse: false,    // 图片正反面
           isCenter: false    // 图片是否居中
         }
     }.bind(this));
-   
+
     //===========左右分区==============//
     let halfLen = Math.ceil(imgArr.length/2);
     imgArr = imgArr.map(function(value,index){
@@ -140,7 +159,7 @@ class GalleryByReactApp extends React.Component {
               constant.hRange.y[1]
               )
           },
-          rotate: 0,    // 旋转角度
+          rotate: get30DegRandom(),    // 旋转角度
           isInverse: false,    // 图片正反面
           isCenter: false    // 图片是否居中
         }
@@ -149,7 +168,7 @@ class GalleryByReactApp extends React.Component {
     //改变后的元素塞回数组对应的位置
    topImgArr && imgArr.splice(topIndex,0,topImgArr[0]);
     imgArr.splice(index,0,centerImg[0]);
-  
+
     this.setState({imgsStyleArr:imgArr});
    //console.log(this.state.imgsStyleArr);
   }
@@ -202,7 +221,7 @@ class GalleryByReactApp extends React.Component {
     ];
 
     this.rearrange(0);
-    
+
   }
 
   render() {
