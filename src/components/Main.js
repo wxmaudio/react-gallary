@@ -71,6 +71,13 @@ class ImgFigure extends React.Component {
   }
 }
 
+class controllerUnit extends React.Compoment {
+  render(){
+    return (
+      <span class="controller-unit"></span>
+    );
+  }
+}
 
 class GalleryByReactApp extends React.Component {
   constructor(){
@@ -270,6 +277,7 @@ class GalleryByReactApp extends React.Component {
           }
         }
         ImgFigures.push(<ImgFigure  key={index} data={value} center = {this.center(index)} inverse={this.inverse(index)} ref={'imgFigure'+index} arrange={this.state.imgsStyleArr[index]}/>);
+        controllerUnits.push(<controllerUnit/>);
       }.bind(this));
     return (
       <section className="stage" ref="stage">
