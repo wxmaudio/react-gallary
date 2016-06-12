@@ -1,3 +1,8 @@
+/*@font-face {
+    font-family: "icons-turn-arrow";
+    src: url("../fonts/icons/turn-arrow.eot") format("embedded-opentype"), url("../fonts/icons/turn-arrow.woff") format("woff"), url("../fonts/icons/turn-arrow.ttf") format("truetype"), url("../fonts/icons/turn-arrow.svg") format("svg");
+}*/
+
 html,body{
 	background-color: #222;
 	width:100%;
@@ -97,6 +102,7 @@ figcaption {
 	z-index: 101;
 	width: 100%;
 	text-align: center;
+  perspective:1000px;
   .controller-unit{
     border-radius:50%;
     display: inline-block;
@@ -109,15 +115,30 @@ figcaption {
     cursor: pointer;
     background-color: #aaa;
 
-    /*transform:scale(0.5);
-    transation:scale .6s ease-in;
-    &::after{
-      color:#fff;
-      font-family:"icons-turn-arrow";
-      font-size:80%;
+    transform:scale(0.5);
+    transition:transform .6s ease-in,background-color .3s ease;
+    transform-style:preverve-3d;
 
-      content::"\e600";
-    }*/
+
+    &.is-center{
+      transform:scale(1);
+      background-color:#888;
+      &::after{
+       color: #fff;
+       font-family: "icons-turn-arrow";
+       font-size: 80%;
+       line-height: 30px;
+       content: ">";
+
+       -webkit-font-smoothing: antialiased;
+       -moz-osx-font-smoothing: grayscale;
+      }
+    }
+    &.is-inverse{
+       background-color: #555;
+       transform:rotateY(180deg);
+    }
+
   }
 }
 /*controller ---end*/

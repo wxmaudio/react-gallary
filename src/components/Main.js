@@ -236,7 +236,7 @@ class GalleryByReactApp extends React.Component {
           }
         }
         ImgFigures.push(<ImgFigure  key={index} data={value} center = {this.center(index)} inverse={this.inverse(index)} ref={'imgFigure'+index} arrange={this.state.imgsStyleArr[index]}/>);
-        controllerUnits.push(<ControllerUnit/>);
+        controllerUnits.push(<ControllerUnit key={index} center = {this.center(index)} inverse={this.inverse(index)} arrange={this.state.imgsStyleArr[index]}/>);
       }.bind(this));
     return (
       <section className="stage" ref="stage">

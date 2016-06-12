@@ -27,10 +27,18 @@ class ImgFigure extends React.Component {
        imgFigureClassName += " inverse";
     }
     return(
-      <figure className={imgFigureClassName} style={style}>
+      <figure className={imgFigureClassName} style={style} onClick={this.imageClick.bind(this)}>
         <img src={this.props.data.imageURL}
-        art={this.props.data.title} onClick={this.imageClick.bind(this)}/>
-        <figcaption className="img-title">{this.props.data.title}</figcaption>
+        art={this.props.data.title} />
+        <figcaption className="img-title">
+            <h2 className="img-title">{this.props.data.title}</h2>
+            <div className="img-back" onClick={this.handleClick}>
+                  <p>
+                      {this.props.data.desc}
+                   </p>
+             </div>
+        </figcaption>
+
       </figure>
       );
   }
