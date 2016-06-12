@@ -1,0 +1,19 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	modified:   cfg/defaults.js
+#	modified:   cfg/dev.js
+#	modified:   cfg/dist.js
+#	modified:   package.json
+#	modified:   src/styles/main.less
+#
+# Untracked files:
+#	dist/assets/
+#	dist/favicon.ico
+#	dist/index.html
+#
+
