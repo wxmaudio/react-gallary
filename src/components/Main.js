@@ -3,6 +3,8 @@ import 'styles/main.less';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ControllerUnit from './ControllerUnit';
+import ImgFigure from './ImgFigure';
 
 //获得图片数据
 let imagesData = require('../data/imageData.json');
@@ -34,50 +36,7 @@ function get30DegRandom(){
      return ((Math.random()>0.5)? '' :'-') + Math.ceil(Math.random()*30);
 }
 
-class ImgFigure extends React.Component {
-  imageClick(e){
-    console.log(this.props);
-    if (!this.props.arrange.isCenter) {
-      this.props.center();
-    }else{
-      this.props.inverse();
-    }
-    e.stopPropagation();
-    e.preventDefault();
-  }
-  render(){
-    let style = {};
-    let pos = this.props.arrange.pos;
-    style = pos;
-    if(this.props.arrange.rotate){
-      ['MozTransform','msTransform','WebkitTransform','transform'].forEach(function(value){
-          style[value] = 'rotate('+this.props.arrange.rotate+'deg)';
-      }.bind(this));
-    }
-    if(this.props.arrange.isCenter){
-      style.zIndex= 11;
-    }
-    let imgFigureClassName = "img-figure"
-    if(this.props.arrange.isInverse){
-       imgFigureClassName += " inverse";
-    }
-    return(
-      <figure className={imgFigureClassName} style={style}>
-        <img src={this.props.data.imageURL}
-        art={this.props.data.title} onClick={this.imageClick.bind(this)}/>
-        <figcaption className="img-title">{this.props.data.title}</figcaption>
-      </figure>
-      );
-  }
-}
 
-class controllerUnit extends React.Compoment {
-  render(){
-    return (
-      <span class="controller-unit"></span>
-    );
-  }
-}
 
 class GalleryByReactApp extends React.Component {
   constructor(){
@@ -277,7 +236,7 @@ class GalleryByReactApp extends React.Component {
           }
         }
         ImgFigures.push(<ImgFigure  key={index} data={value} center = {this.center(index)} inverse={this.inverse(index)} ref={'imgFigure'+index} arrange={this.state.imgsStyleArr[index]}/>);
-        controllerUnits.push(<controllerUnit/>);
+        controllerUnits.push(<ControllerUnit/>);
       }.bind(this));
     return (
       <section className="stage" ref="stage">
